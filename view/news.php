@@ -15,17 +15,20 @@
               <img class="search-img" src="../img/search.svg" alt="">
             </div>
           </label>
-            <input type="submit" id="search" alt="search">
+          <input type="submit" id="search" alt="search">
         </form>
     </header>
 
     <main>
       <div class="company_name">
-
+        <h2><?php echo $compmany_name; ?></h2>
       </div>
 
       <div class="news">
-
+        <?php foreach $line in $list: ?> -->
+          <img class="news_img" src="<?php echo $img_url; ?>" alt="">
+          <h3><?php echo $news_title; ?></h3>
+        <?php endforeach ;?>
       </div>
     </main>
   </body>
