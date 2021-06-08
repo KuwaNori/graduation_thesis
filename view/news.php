@@ -20,9 +20,9 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/news.css">
     <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title></title>
   </head>
   <body>
@@ -48,7 +48,7 @@
       <div class="news">
         <?php while($line = pg_fetch_row($news_list)): ?>
           <img class="news_img" src="<?php echo getImgUrl($line[2]); ?>" alt="">
-          <h3><?php  ?></h3>
+          <h3 class="text-truncate"><?php  ?></h3>
         <?php endwhile;?>
     <!-- もしデータがなかったら -->
     <?php else: ?>
