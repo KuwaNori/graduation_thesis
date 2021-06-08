@@ -2,3 +2,9 @@
     padding: 0px;
     margin: 0px;
 }
+.company_name{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+}
