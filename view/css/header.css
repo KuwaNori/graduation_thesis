@@ -36,6 +36,7 @@ header form{
   border-radius: 0px 4px 4px 0px;
   box-sizing: border-box;
   cursor: pointer;
+  margin-top: 8px;
 }
 .search-img{
   height: 30px;
