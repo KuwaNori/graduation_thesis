@@ -47,8 +47,14 @@
 
       <div class="news">
         <?php while($line = pg_fetch_row($news_list)): ?>
-          <img class="news_img" src="<?php echo getImgUrl($line[2]); ?>" alt="">
-          <h3 class="text-truncate"><?php  ?></h3>
+            <div class="newsbox">
+              <a href="<?php echo $line[4] ?>" class="linkto">
+                <div class="linkbutton">
+                  <img class="news_cate" src="<?php echo getImgUrl($line[2]); ?>" alt="">
+                  <p class="text-truncate"><?php echo $line[5]; ?></p>
+                </div>
+              </a>
+            </div>
         <?php endwhile;?>
     <!-- もしデータがなかったら -->
     <?php else: ?>
