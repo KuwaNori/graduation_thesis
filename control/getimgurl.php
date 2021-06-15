@@ -1,8 +1,8 @@
 <?php
   function getImgUrl($number){
     if ($number < 10){
-      $count = "0{$number}";
+      $number = "0{$number}";
     }
-    return "../img/sdg_icon_{$count}_ja_2-290x290.png";
+    return "../img/sdg_icon_{$number}_ja_2-290x290.png";
   }
  ?>

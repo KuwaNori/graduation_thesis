@@ -16,26 +16,33 @@
 }
 
 .linkto{
-  height: 100px;
+  height: 18vh;
   width: 100%;
 }
 
 .newsbox{
-  width: 70%;
+  width: 75%;
   display: flex;
   margin-top: 20px;
-  height: 100px;
+  height: 18vh;
   border: 1px #4c4c4c solid;
   border-radius: 3px;
 }
 .linkbutton{
   width: 100%;
-   display: flex;
-
+  display: flex;
 }
 
 .news_cate{
   margin: 5px;
-  margin-right: 15px;
-  height: 90px;
+  margin-right: 2%;
+  height: 16vh;
+}
+
+.title{
+  margin-right: 2%;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

@@ -11,8 +11,7 @@
   # check token and get list of news
   if (isset($_POST['input_company_name'])){
     $company_name = $_POST['input_company_name'];
-    $company_data = getComapnyId($company_name);
-    $news_list = getNewsList($company_name);
+    $companies = getComapnies($company_name);
   }
 ?>
 <!DOCTYPE html>
@@ -20,6 +19,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/news.css">
     <link rel="stylesheet" href="./css/header.css">
@@ -28,7 +28,7 @@
   <body>
     <header>
         <form class="header-top" method="post" action="#" name="word">
-          <input type="text" class="text-input" name="input_company_name">
+          <input type="text" class="text-input" name="input_company_name" placeholder="Search">
           <label for="search">
             <div class="search">
               <img class="search-img" src="../img/search.svg" alt="">
@@ -39,27 +39,43 @@
     </header>
 
     <main>
-    <!-- もし既にデータベースに登録済みなら -->
-    <?php if( $news_list != "No news are there"): ?>
+    <!-- もし既にデータベースに登録済み、かつ候補の会社が1つの時 -->
+    <?php if(count($companies) == 1): ?>
+      <?php $news_list = getNewsList($companies[0]["company_id"]); ?>
+      <?php if ($news_list == False): ?>
+        <p>We cannot find news</p>
+      <?php endif; ?>
       <div class="company_name">
-        <h2><?php echo $company_data[1]; ?></h2>
+        <h3><?php echo $companies[0]["company_name"]; ?></h3>
       </div>
 
       <div class="news">
-        <?php while($line = pg_fetch_row($news_list)): ?>
-            <div class="newsbox">
-              <a href="<?php echo $line[4] ?>" class="linkto">
+        <?php foreach ($news_list as $line) :?>
+          <div class="newsbox">
+              <a href="<?php echo $line["news_url"]; ?>" class="linkto">
                 <div class="linkbutton">
-                  <img class="news_cate" src="<?php echo getImgUrl($line[2]); ?>" alt="">
-                  <p class="text-truncate"><?php echo $line[5]; ?></p>
-                </div>
-              </a>
-            </div>
-        <?php endwhile;?>
+                <img class="news_cate" src="<?php echo getImgUrl($line["category_id"]); ?>" alt="">
+                <p class="title"><?php echo $line["news_title"]; ?></p>
+              </div>
+            </a>
+          </div>
+        <?php endforeach;?>
     <!-- もしデータがなかったら -->
+    <?php  elseif (count($companies) == 0):?>
+      <p>There is no news list about <?php echo $company_name; ?> </p>
+      <a href="#">Scrape news about <?php echo $company_name; ?></a>
+    <!-- もし複数の企業データがあれば -->
     <?php else: ?>
-          <p>There are no article about <?php echo $_POST['input_company_name']; ?></p>
-    <?php endif; ?>
+      <p>もしかして...</p>
+      <ul>
+        <?php foreach($companies as $company): ?>
+          <form method="post" action="#" name="candi<?php echo $company["company_id"]; ?>" id="word<?php echo $company["company_id"]; ?>">
+            <input type="hidden" name="input_company_name" value="<?php echo $company["company_name"]; ?>">
+            <li>・<a href="javascript:candi<?php echo $company["company_id"];?>.submit()"><?php echo $company["company_name"]; ?></a></li>
+          </form>
+        <?php endforeach; ?>
+      </ul>
+      <?php endif; ?>
       </div>
     </main>
   </body>
