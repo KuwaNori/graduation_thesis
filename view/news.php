@@ -62,11 +62,15 @@
         <?php endforeach;?>
     <!-- もしデータがなかったら -->
     <?php  elseif (count($companies) == 0):?>
-      <p>There is no news list about <?php echo $company_name; ?> </p>
-      <a href="#">Scrape news about <?php echo $company_name; ?></a>
+      <p>「<?php echo $company_name; ?>」に関する検索結果がありません</p>
+      <form method="post" action="#" name="scrape" id="word<?php echo $company["company_id"]; ?>">
+        <input type="hidden" name="input_company_name" value="<?php echo $company_name; ?>">
+        <a href="javascript:scrape.submit()">「<?php echo $company_name; ?>」に関するニュースを取得する</a>
+      </form>
+
     <!-- もし複数の企業データがあれば -->
     <?php else: ?>
-      <p>もしかして...</p>
+      <p>「<?php echo $company_name; ?>」の検索結果</p>
       <ul>
         <?php foreach($companies as $company): ?>
           <form method="post" action="#" name="candi<?php echo $company["company_id"]; ?>" id="word<?php echo $company["company_id"]; ?>">

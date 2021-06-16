@@ -15,7 +15,7 @@ function getNewsList($company_id){
   return $news_list;
 }
 
-#function for get company ID
+#function for get companies
 
 function getComapnies($company_name){
   $sql_getcompanyid = "select * from companies where company_name like '%{$company_name}%'";
