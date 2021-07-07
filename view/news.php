@@ -11,6 +11,7 @@
   # check token and get list of news
   if (isset($_POST['input_company_name'])){
     $company_name = $_POST['input_company_name'];
+    // 変数companiesには企業名が０～複数入る、後に、{0の時、1の時、複数の時}で分岐を行う
     $companies = getComapnies($company_name);
   }
 ?>
@@ -27,6 +28,7 @@
   </head>
   <body>
     <header>
+      <!-- 検索フォーム -->
         <form class="header-top" method="post" action="#" name="word">
           <input type="text" class="text-input" name="input_company_name" placeholder="Search">
           <label for="search">
@@ -42,14 +44,13 @@
     <!-- もし既にデータベースに登録済み、かつ候補の会社が1つの時 -->
     <?php if(count($companies) == 1): ?>
       <?php $news_list = getNewsList($companies[0]["company_id"]); ?>
-      <?php if ($news_list == False): ?>
-        <p>We cannot find news</p>
-      <?php endif; ?>
+      <!-- Falseでなければ企業名を表示 -->
       <div class="company_name">
         <h3><?php echo $companies[0]["company_name"]; ?></h3>
       </div>
 
       <div class="news">
+        <!-- ニュース一覧の表示 -->
         <?php foreach ($news_list as $line) :?>
           <div class="newsbox">
               <a href="<?php echo $line["news_url"]; ?>" class="linkto">
