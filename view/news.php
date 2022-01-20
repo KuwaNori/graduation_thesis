@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="./css/news.css">
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/hamburger.css">
+    <link rel="stylesheet" href="./css/cate.css">
     <style>
     <?php for($i=1;$i<=16;$i++):?>
     .link<?php echo $i;?>:hover{
@@ -59,7 +60,7 @@
             <?php for($i=1;$i<=16;$i++):?>
                 <li>
                     <form method="get" action="#" name="search<?php echo $i;?>"><input type='hidden' name="input_category" value="<?php echo $i;?>">
-                        <a class="link<?php echo $i;?>" href="javascript:search<?php echo $i;?>.submit()">GAOL <?php echo $i;?></a>
+                        <a class="link<?php echo $i;?>" href="javascript:search<?php echo $i;?>.submit()">GOAL <?php echo $i;?></a>
                     </form>
                 </li>
             <?php endfor;?>
@@ -75,9 +76,10 @@
     <main>
     <!--　企業の表示-->
     <?php if (isset($_GET["companies"])):?>
-    <?php $all_companies = getAllCompanies();
-        echo_companies($all_companies);
-    ?> 
+    <?php $all_companies = getAllCompanies();?>
+    <div class="news">
+    <?php echo_companies($all_companies);?> 
+    </div>
     <?php endif;?>
     <!-- カテゴリー検索 -->
     <?php if (isset($_GET["input_category"])) :?>
@@ -88,27 +90,30 @@
             if(count($category_results) == 0){
                 echo "お探しのゴールに関するニュースはまだありません";
             }
-        ?>
+?>
         <div class="news">
         <?php 
-            echo_cate_news($category_results,$input_category);
+            echo_news($category_results);
         ?>
         </div>
     <?php endif;?>
     <!-- もし既にデータベースに登録済み、かつ候補の会社が1つの時 -->
     <?php if(isset($_GET["input_company_name"])):?>
     <?php if(count($companies) == 1): ?>
-      <?php $news_list = getNewsList($companies[0]["company_id"]); ?>
+      <?php $news_list = getNewsList($companies[0]["company_id"]);
+            $company = $companies[0]["company_name"];  
+?>
       <!-- Falseでなければ企業名を表示 -->
       <div class="company_name">
-        <h3><?php echo $companies[0]["company_name"]; ?></h3>
+        <h3><?php echo $company; ?></h3>
       </div>
 
-      <div class="news">
+        <div class="news">
         <!-- ニュース一覧の表示 -->
     <?php 
         echo_news($news_list);
     ?>
+        </div>
     <!-- もしデータがなかったら -->
     <?php  elseif (count($companies) == 0):?>
       <p>「<?php echo $company_name; ?>」に関する検索結果がありません</p>
@@ -130,7 +135,6 @@
       </ul>
       <?php endif; ?>
     <?php endif;?>
-      </div>
     </main>
   </body>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

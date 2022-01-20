@@ -57,25 +57,19 @@ else:
             img = "../img/sdg_icon_{}_ja_2-290x290.png".format(category)
             rating = 100*relates/nouns_count
             if rating < 5:
-                cur.execute("insert into out_news (added_date,category_id,company_id,news_url,news_title,news_date,rating) values (current_date,{0},{1},'{2}','{3}','{4}',{5})".format(category,company_id,values[0],values[1],values[2],rating))
-                conn.commit()
-                # 以下のコードはテスト用
-                # print("<br>カテゴリー： "+str(category+1) + "　関連語率："+str(ritu)+" 最大: " + str(max(scores))+" :合計 "+str(sum(scores))+" :タイトル "+values[1])
                 continue
-            # 以下2行はテスト用のコード（関連度のチェック,URL表示）
-            # print("<br>カテゴリー： "+str(category+1) + "　関連語率："+str(ritu)+" 最大: " + str(max(scores))+" :合計 "+str(sum(scores))+" :タイトル "+values[1])
-            # print(values[0]+"<br>")
             news_count+=1
-            print(htmls.news(values[0],img,values[1],values[2]))
+            print(htmls.news(values[0],img,values[1],company,values[2]))
             if values[0] not in news_in_db:
-                if "'" in values[1]:
+                try:
+                    cur.execute("insert into news (added_date,category_id,company_id,news_url,news_title,news_date,rating) values (current_date,{0},{1},'{2}','{3}','{4}',{5})".format(category,company_id,values[0],values[1],values[2],rating))
+                    conn.commit()
+                except:
                     continue
-                cur.execute("insert into news (added_date,category_id,company_id,news_url,news_title,news_date,rating) values (current_date,{0},{1},'{2}','{3}','{4}',{5})".format(category,company_id,values[0],values[1],values[2],rating))
-                conn.commit()
     cur.close()
     conn.close()
     if news_count == 0:
-        print("<p class='cent'>{}に関するSDGsのニュースを見つけることができませんでした</p>".format(company))
+        print("<p class='cent'>{}に関するSDGs関連の新しいニュースを見つけることができませんでした</p>".format(company))
     print("</div>")
 print(message)
 print("</main>")

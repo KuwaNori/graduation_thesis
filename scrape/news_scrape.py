@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import datetime
 sys.path.append("/home/h0/kuwanori/.local/lib/python3.6/site-packages")
 sys.path.append("/home/h0/kuwanori/.local/share/pyppeteer")
 import requests
@@ -9,6 +10,10 @@ import MeCab
 from bs4 import BeautifulSoup
 from requests_html import HTMLSession
 
+def get_month(mon):
+    monthes = ["Jan.","Feb.","Mar.","Apr.","May.","Jun.","Jul.","Aug.","Sep.","Oct.","Nov.","Dec."]
+    n = monthes.index(mon)
+    return str(n+1)
 
 def prtimes(soup,news_in_db):
     newstags = soup.find_all(class_="list-article__link")
@@ -18,7 +23,14 @@ def prtimes(soup,news_in_db):
         if absolute_url in news_in_db:
             continue
         title = news.find('h3').get_text().strip()
-        dtime = news.find('time').get_text().strip()
+        o = news.find('time').get_text().strip()
+        if "前" in o:
+            dtime = datetime.date.today()
+        else:
+            a = o.split(" ")[0]
+            b = a.replace("年","-")
+            c = b.replace("月","-")
+            dtime = c[:-1]
         field.append([absolute_url,title,dtime,"PRTIMES"])
     return field
 
@@ -30,7 +42,11 @@ def yahoo(soup,news_in_db):
         if url in news_in_db:
             continue
         title = news.find(class_="newsFeed_item_title").get_text().strip()
-        dtime = news.find('time').get_text().strip()
+        o = news.find('time').get_text().strip()
+        a = o.split("(")[0]
+        dtime = a.replace("/","-")
+        if len(dtime) < 6:
+            dtime = str(datetime.datetime.now().year)+ "-" + dtime
         field.append([url,title,dtime,"Yahooニュース"])
     return field
 
@@ -65,7 +81,10 @@ def insider(url,news_in_db):
         if url in news_in_db:
             continue
         title = div.text
-        dtime = date.text
+        o = date.text
+        mon,d,y = o.split()
+        m = get_month(mon)
+        dtime =y +"-" + m + "-" + d[:-1]
         field.append([url,title,dtime,"ビジネスインサイダー"])
     return field
 

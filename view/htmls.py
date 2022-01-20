@@ -37,15 +37,16 @@ def foot():
 """
     return foot
 
-def news(url,img,title,time):
-    news="""
-    <div class="newsbox">
-        <a href="{0}" class="linkto">
-            <div class="linkbutton">
-                <img class="news_cate" src="{1}">
-                <p class="title">{2} <br>{3}</p>
-            </div>
-        </a>
-    </div>
-    """.format(url,img,title,time)
+def news(url,img,title,company,time):
+    news = """<div class='newsbox'>
+            <a href='{0}' class='linkto'>
+            <div class='linkbutton'>
+                <div class='newsleft'>
+                    <img class='news_cate' src='{1}'>
+                    <p class='news_time'>{2}</p>
+                </div>
+                <div class='newsright'>
+                    <div class='news_company'>{3}</div>
+                    <p class='title'>{4}</p>
+                </div></div></a></div>""".format(url,img,time,company,title)
     return news

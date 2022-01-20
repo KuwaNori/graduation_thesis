@@ -18,7 +18,7 @@ function getNewsList($company_id){
 #function for get companies
 
 function getComapnies($company_name){
-  $sql_getcompanyid = "select * from companies where company_name like '%{$company_name}%'";
+  $sql_getcompanyid = "select * from companies where company_name like '%{$company_name}%';";
   $result = pg_query($sql_getcompanyid) or die('Query failed: ' . pg_last_error());
   $case = pg_fetch_all($result);
   return $case;
@@ -39,10 +39,22 @@ function getCompanyName($id){
 }
 
 function getAllCompanies(){
-  $sql = "select * from companies;";
+  $sql = "select * from companies order by company_name;";
   $result = pg_query($sql) or die('Query failed: ' . pg_last_error());
   $case = pg_fetch_all($result);
   return $case;
+}
+
+function getTop3($id){
+    $id = intval($id);
+    $sql = "select category_id from news where company_id = {$id};";
+    $result = pg_query($sql) or die('Query failed: ' . pg_last_error());
+    $case = pg_fetch_all_columns($result,0);
+    $number = count($case);
+    $count_values = array_count_values($case);
+    asort($count_values);
+    return [array_keys($count_values),$number];
+    
 }
 
  ?>

@@ -1,0 +1,79 @@
+.companybox{
+    width: 95%;
+    display: flex;
+    justify-content: column;
+    margin:0 auto;
+    margin-top: 20px;
+    height: 18vh;
+    border: 1px #4c4c4c solid;
+}
+.news_company{
+    height:4vh;
+    width:100%;
+}
+.cateform{
+    width: 100%;
+}
+.company_linkbutton{
+    width:100%;
+}
+.under{
+    height: 14vh;
+    width:100%;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.cate_imgs{
+    width:calc(100% - 130px);
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+}
+.cate_imgs:before{
+    content:'';
+    display:block;
+    width:calc(10vh);
+    height: 0px;
+    margin: 5px;
+    order: 1;
+}
+.cate_imgs:after{
+    content:'';
+    display:block;
+    width:calc(10vh);
+    height: 0px;
+    margin: 5px;
+}
+.cate{
+    height: 10vh;
+    margin: 5px;
+}
+.news_num{
+    width: 130px;
+}
+.number{
+    font-size: 24px;
+}
+@media screen and (min-width: 500px){
+    .companybox{
+        width: 90%;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width: 1040px){
+    .companybox{
+        width: 47%;
+    }
+}
+
+@media screen and (min-width:1040px) {
+    .companybox{
+        width: 31%;
+    }
+    .cate_imgs{
+        display:flex;
+        justify-content: space-around;
+    }
+}

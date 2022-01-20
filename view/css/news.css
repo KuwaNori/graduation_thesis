@@ -3,6 +3,11 @@
     margin: 0px;
 }
 
+main{
+  margin-top: 90px;
+  margin-bottom: 40px;
+}
+
 .company_name{
   display: flex;
   justify-content: center;
@@ -12,8 +17,8 @@
 
 .news{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .news a{
@@ -26,15 +31,14 @@
   color: #555;
   background-color: #ddd;
 }
-.news a:hover
 .linkto{
   height: 18vh;
-  width: 100%;
 }
 
 .newsbox{
-  width: 75%;
+  width: 95%;
   display: flex;
+  margin:0 auto;
   margin-top: 20px;
   height: 18vh;
   border: 1px #4c4c4c solid;
@@ -43,16 +47,31 @@
 .linkbutton{
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
 }
-
+.newsleft{
+    width: 25%;
+}
+.newsright{
+    width: 75%;
+}
 .news_cate{
   margin: 5px;
   margin-right: 2%;
-  height: 16vh;
+  height: 10vh;
+}
+.news_time{
+    font-size:5px;
+    margin-left:5px;
+    
+}
+.news_company{
+  margin-left: 5px;
 }
 
 .title{
   margin-right: 2%;
+  font-size: 14px;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -60,4 +79,44 @@
 }
 .cent{
   text-align: center;
+}
+
+.news:after{
+    content:'';
+    display:block;
+    margin:0 auto;
+}
+
+.news:before{
+    content:'';
+    display:block;
+    margin:0 auto;
+    order:1;
+
+}
+@media screen and (min-width: 500px){
+    .newsbox{
+        width: 90%;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width: 1040px){
+    .newsbox{
+        width: 47%;
+    }
+    .news:after{
+        width: 47%;
+    }
+}
+
+@media screen and (min-width:1040px) {
+    .newsbox{
+        width: 31%;
+    }
+    .news:after{
+        width: 31%;
+    }
+    .news:before{
+        width: 31%;
+    }
 }

@@ -59,7 +59,7 @@
             <?php for($i=1;$i<=16;$i++):?>
                 <li>
                     <form method="get" action="./news.php" name="search<?php echo $i;?>"><input type='hidden' name="input_category" value="<?php echo $i;?>">
-                        <a class="link<?php echo $i;?>" href="javascript:search<?php echo $i;?>.submit()">GAOL <?php echo $i;?></a>
+                        <a class="link<?php echo $i;?>" href="javascript:search<?php echo $i;?>.submit()">GOAL <?php echo $i;?></a>
                     </form>
                 </li>
             <?php endfor;?>
