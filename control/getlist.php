@@ -9,7 +9,7 @@ $dbconn = pg_connect("host=$personal[0] dbname=$personal[1] user=$personal[2] pa
 # function for get news
 
 function getNewsList($company_id){
-  $sql_getnews = "select * from news where company_id = {$company_id} order by category_id asc;";
+  $sql_getnews = "select * from news where company_id like '%{$company_id}%' order by category_id asc;";
   $result = pg_query($sql_getnews) or die('Query failed: ' . pg_last_error());
   $news_list = pg_fetch_all($result);
   return $news_list;
@@ -25,7 +25,7 @@ function getComapnies($company_name){
 }
 
 function find_category($category){
-  $sql = "select * from news where category_id = {$category} order by company_id;";
+  $sql = "select * from news where category_id = {$category};";
   $result = pg_query($sql) or die('Query failed: ' . pg_last_error());
   $case = pg_fetch_all($result);
   return $case;
@@ -47,7 +47,7 @@ function getAllCompanies(){
 
 function getTop3($id){
     $id = intval($id);
-    $sql = "select category_id from news where company_id = {$id};";
+    $sql = "select category_id from news where company_id like '%{$id}%';";
     $result = pg_query($sql) or die('Query failed: ' . pg_last_error());
     $case = pg_fetch_all_columns($result,0);
     $number = count($case);

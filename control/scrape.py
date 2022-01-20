@@ -28,16 +28,16 @@ else:
     company = form['input_company_name'].value
     conn = dbconn.connection()
     cur = conn.cursor()
-    cur.execute("select company_id from companies where company_name like '%{}%';".format(company))
+    cur.execute("select company_id from companies where company_name = '{}';".format(company))
     rows = cur.fetchall()
     if len(rows) == 0:
-        cur.execute("insert into companies (company_name) values('{}');".format(company))
+        cur.execute("insert into companies values(nextval('companies_id'),'{}');".format(company))
         conn.commit()
         cur.execute("select max(company_id) from companies;")
         rows = cur.fetchall()
     company_id = rows[0][0]
     news_in_db = []
-    cur.execute("select news_url from news where company_id = {}".format(company_id))
+    cur.execute("select news_url from news where company_id like '%{}%';".format(company_id))
     rows = cur.fetchall()
     for row in rows:
         news_in_db.append(row[0])
@@ -66,6 +66,15 @@ else:
                     conn.commit()
                 except:
                     continue
+            else:
+                cur.execute("select company_id from news where news_url = '{}'").format(values[0])
+                rows = cur.fetchall()
+                companies = rows[0][0]
+                companies = companies +","+str(company_id)
+                print(companies)
+                cur.execute("update news set company_id = '{0}' where news_url = '{1}'").format(companies,values[0])
+                conn.commit()
+                
     cur.close()
     conn.close()
     if news_count == 0:
