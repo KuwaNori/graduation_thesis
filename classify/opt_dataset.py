@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""データセットを作成してコピぺするためのファイル"""
+
 import openpyxl
 import pprint
 from collections import Counter

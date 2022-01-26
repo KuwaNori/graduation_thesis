@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-名詞を取得
+渡されたURLの名詞を取得してリストにして返す
 """
 
 import requests

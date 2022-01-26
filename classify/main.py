@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-スクレイピングしてデータ集める
+URLを入力して、スクレイピングして名詞のデータ集める
 """
 
 import scrape_morph as morph
 import xl_control as xl
+
 
 
 xlfile = 'excel/category13.xlsx'

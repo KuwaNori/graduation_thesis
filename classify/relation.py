@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""category100.xlsxの中のニュースの関連度を調べる"""
+
 import sys
 import xl_control as xl
 import final_score  as fs

@@ -1,10 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+関連語の重みを3000に統一して、それぞれの単語の重みを
+それの比に合わせて変化させる
+"""
+
 import openpyxl
 import pprint
 from collections import Counter
 
+"""単語の新しい値を返す"""
 def new_value(t,last_v):
     values = [2330,3072,2175,2241,2385,3113,3002,2705,2326,2181,2443,2455,3208,3573,3242,2326]
     b = values[t-2]

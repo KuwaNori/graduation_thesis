@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+random_text.xlsxからURLと答えを取り出して
+どのくらい正確かを測る
+"""
+
 import sys
 import xl_control as xl
 import final_score  as fs
